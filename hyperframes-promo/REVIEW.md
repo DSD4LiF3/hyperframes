@@ -25,5 +25,5 @@
 
 ## Weakest shot / next
 
-- The payoff (≈21.4 s), where the two strips converge, is quiet: identical strips merging reads as "one strip", not "two renders matched". With more time, add a beat where B is offset by half a frame and visibly snaps into alignment, and give it a riser and impact once there is sound.
+- The payoff (20.4–21.7 s) now reads as two renders matching. Strip B lands half a frame out of line, slides into alignment, and mint match lines draw between twin frames. The strips then slam together on a power3.in ease, and "Same frames." lands on the impact. It still wants a riser and impact sound once there is audio.
 - The title holds about 2 s after line 2 lands (1.1–3.3 s). That's fine for reading, but it could open the pull-back 0.5 s earlier.

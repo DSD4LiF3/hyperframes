@@ -81,10 +81,18 @@
       position: absolute;
       inset: 0;
     }
+    .sm-match {
+      position: absolute;
+      top: 446px;
+      width: 8px;
+      height: 108px;
+      background: #3CE6AC;
+      transform-origin: 50% 0;
+    }
     .sm-head {
       position: absolute;
       left: 96px;
-      top: 880px;
+      top: 900px;
       font-size: 96px;
       font-weight: 900;
       letter-spacing: -0.045em;
@@ -139,6 +147,15 @@
         </div>
         <div class="fs-holes fs-holes-bot"></div>
       </div>
+      <div class="sm-match" style="left: -676px"></div>
+      <div class="sm-match" style="left: -268px"></div>
+      <div class="sm-match" style="left: 140px"></div>
+      <div class="sm-match" style="left: 548px"></div>
+      <div class="sm-match" style="left: 956px"></div>
+      <div class="sm-match" style="left: 1364px"></div>
+      <div class="sm-match" style="left: 1772px"></div>
+      <div class="sm-match" style="left: 2180px"></div>
+      <div class="sm-match" style="left: 2588px"></div>
     </div>
     <div id="sm-head-a" class="sm-head" data-layout-allow-overlap>
       <span id="sm-ha1" class="sm-word">Same</span> <span id="sm-ha2" class="sm-word">input.</span>
@@ -160,27 +177,34 @@
     tl.fromTo("#sm-a", { clipPath: "inset(48px 1632px 48px 1632px)" }, {
       clipPath: "inset(0px 0px 0px 0px)", duration: 0.7, ease: "expo.out",
     }, 0.1);
-    tl.fromTo("#sm-a", { y: 0 }, { y: -210, duration: 0.7, ease: "power3.inOut" }, 0.5);
+    tl.fromTo("#sm-a", { y: 0 }, { y: -250, duration: 0.7, ease: "power3.inOut" }, 0.5);
 
-    // Strip B, a second render, whips in from the right and settles into x alignment.
-    tl.fromTo("#sm-b", { x: 2200, y: 150, filter: "blur(18px)" }, {
-      x: 0, y: 150, filter: "blur(0px)", duration: 1.3, ease: "expo.out",
+    // Strip B, a second render, whips in from the right and lands half a frame out of line.
+    tl.fromTo("#sm-b", { x: 2200, y: 170, filter: "blur(18px)" }, {
+      x: 204, y: 170, filter: "blur(0px)", duration: 1.3, ease: "expo.out",
     }, 0.9);
     tl.to(["#sm-ha1", "#sm-ha2"], { opacity: 1, duration: 0.01 }, 1.2);
     tl.fromTo(["#sm-ha1", "#sm-ha2"], { filter: "blur(6px)" }, {
       filter: "blur(0px)", duration: 0.13, ease: "power4.out", stagger: 0.07,
     }, 1.2);
 
-    // Converge: the two renders land on one line, frame for frame.
-    tl.to("#sm-a", { y: -30, duration: 0.8, ease: "power3.inOut" }, 2.6);
-    tl.to("#sm-b", { y: -30, duration: 0.8, ease: "power3.inOut" }, 2.6);
+    // B slides into line: every frame sits over its twin, and the match lines draw.
+    tl.to("#sm-b", { x: 0, duration: 0.5, ease: "power4.inOut" }, 2.35);
+    tl.fromTo(".sm-match", { scaleY: 0 }, {
+      scaleY: 1, duration: 0.2, ease: "power3.out", stagger: 0.03,
+    }, 2.85);
+    tl.to(".sm-match", { opacity: 0, duration: 0.1, ease: "power2.in" }, 3.25);
+
+    // Impact: the two renders slam together on one line.
+    tl.to("#sm-a", { y: -30, duration: 0.35, ease: "power3.in" }, 3.25);
+    tl.to("#sm-b", { y: -30, duration: 0.35, ease: "power3.in" }, 3.25);
     tl.to(["#sm-ha1", "#sm-ha2"], {
       opacity: 0, filter: "blur(8px)", duration: 0.15, ease: "power2.in", stagger: 0.04,
-    }, 3.15);
+    }, 3.3);
     tl.fromTo(["#sm-hb1", "#sm-hb2"], { opacity: 0, filter: "blur(6px)" }, {
       opacity: 1, filter: "blur(0px)", duration: 0.13, ease: "power4.out", stagger: 0.07,
-    }, 3.4);
-    tl.to("#sm-mark", { scaleX: 1, duration: 0.35, ease: "expo.out" }, 3.6);
+    }, 3.6);
+    tl.to("#sm-mark", { scaleX: 1, duration: 0.35, ease: "expo.out" }, 3.72);
     tl.set({}, {}, 6);
     window.__timelines["same"] = tl;
   </script>
