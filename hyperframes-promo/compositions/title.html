@@ -1,0 +1,48 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      background: #3CE6AC;
+      font-family: "Inter", sans-serif;
+    }
+    #title-lines {
+      position: absolute;
+      left: 150px;
+      top: 318px;
+    }
+    .t-line {
+      font-size: 230px;
+      font-weight: 900;
+      letter-spacing: -0.045em;
+      line-height: 0.95;
+      color: #181716;
+      white-space: nowrap;
+    }
+  </style>
+  <div id="root" data-composition-id="title" data-width="1920" data-height="1080">
+    <div id="title-lines">
+      <div class="t-line">Write HTML.</div>
+      <div class="t-line">Render video.</div>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    // Frame 0 is already resolving, so the thumbnail reads.
+    tl.fromTo(
+      "#title-lines .t-line:nth-child(1)",
+      { opacity: 0.85, filter: "blur(3px)" },
+      { opacity: 1, filter: "blur(0px)", duration: 0.22, ease: "power4.out" },
+      0,
+    );
+    tl.fromTo(
+      "#title-lines .t-line:nth-child(2)",
+      { opacity: 0, filter: "blur(8px)" },
+      { opacity: 1, filter: "blur(0px)", duration: 0.2, ease: "power4.out" },
+      0.9,
+    );
+    tl.set({}, {}, 3);
+    window.__timelines["title"] = tl;
+  </script>
+</template>

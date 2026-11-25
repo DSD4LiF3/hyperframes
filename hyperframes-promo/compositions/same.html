@@ -1,0 +1,187 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      background: #f2f0ed;
+      font-family: "Inter", sans-serif;
+      color: #181716;
+    }
+    .fs-strip {
+      position: absolute;
+      left: -864px;
+      top: 384px;
+      width: 3648px;
+      height: 312px;
+      background: #181716;
+    }
+    .fs-holes {
+      position: absolute;
+      left: 0;
+      width: 3648px;
+      height: 12px;
+      background-image: repeating-linear-gradient(90deg, #f2f0ed 0 18px, transparent 18px 48px);
+      background-position: 15px 0;
+    }
+    .fs-holes-top {
+      top: 18px;
+    }
+    .fs-holes-bot {
+      bottom: 18px;
+    }
+    .fs-cells {
+      position: absolute;
+      left: 0;
+      top: 48px;
+      display: flex;
+      gap: 24px;
+    }
+    .fs-cell {
+      position: relative;
+      width: 384px;
+      height: 216px;
+      overflow: hidden;
+      flex: none;
+    }
+    .fs-frame {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 1920px;
+      height: 1080px;
+      transform: scale(0.2);
+      transform-origin: 0 0;
+      background: #06e3fa;
+    }
+    .fs-lines {
+      position: absolute;
+      left: 150px;
+      top: 318px;
+      font-size: 230px;
+      font-weight: 900;
+      letter-spacing: -0.045em;
+      line-height: 0.95;
+      color: #181716;
+      white-space: nowrap;
+    }
+    .fs-soft .fs-l1 {
+      opacity: 0.55;
+      filter: blur(6px);
+    }
+    .fs-soft .fs-l2,
+    .fs-l1 .fs-l2 {
+      opacity: 0;
+    }
+    .fs-half .fs-l2 {
+      opacity: 0.4;
+      filter: blur(5px);
+    }
+    #sm-drift {
+      position: absolute;
+      inset: 0;
+    }
+    .sm-head {
+      position: absolute;
+      left: 96px;
+      top: 880px;
+      font-size: 96px;
+      font-weight: 900;
+      letter-spacing: -0.045em;
+      line-height: 1;
+      white-space: nowrap;
+    }
+    .sm-word {
+      position: relative;
+      display: inline-block;
+      isolation: isolate;
+    }
+    #sm-mark {
+      position: absolute;
+      left: -8px;
+      right: -8px;
+      top: 52%;
+      height: 40%;
+      background: #3CE6AC;
+      transform-origin: 0 50%;
+      z-index: -1;
+    }
+  </style>
+  <div id="root" data-composition-id="same" data-width="1920" data-height="1080">
+    <div id="sm-drift" data-layout-allow-overflow data-layout-allow-overlap>
+      <div id="sm-a" class="fs-strip">
+        <div class="fs-holes fs-holes-top"></div>
+        <div class="fs-cells">
+          <div class="fs-cell fs-soft"><div class="fs-frame"><div class="fs-lines"><div class="fs-l1">Write HTML.</div><div class="fs-l2">Render video.</div></div></div></div>
+          <div class="fs-cell fs-l1"><div class="fs-frame"><div class="fs-lines"><div class="fs-l1">Write HTML.</div><div class="fs-l2">Render video.</div></div></div></div>
+          <div class="fs-cell fs-l1"><div class="fs-frame"><div class="fs-lines"><div class="fs-l1">Write HTML.</div><div class="fs-l2">Render video.</div></div></div></div>
+          <div class="fs-cell fs-half"><div class="fs-frame"><div class="fs-lines"><div class="fs-l1">Write HTML.</div><div class="fs-l2">Render video.</div></div></div></div>
+          <div class="fs-cell fs-full"><div class="fs-frame"><div class="fs-lines"><div class="fs-l1">Write HTML.</div><div class="fs-l2">Render video.</div></div></div></div>
+          <div class="fs-cell fs-full"><div class="fs-frame"><div class="fs-lines"><div class="fs-l1">Write HTML.</div><div class="fs-l2">Render video.</div></div></div></div>
+          <div class="fs-cell fs-full"><div class="fs-frame"><div class="fs-lines"><div class="fs-l1">Write HTML.</div><div class="fs-l2">Render video.</div></div></div></div>
+          <div class="fs-cell fs-full"><div class="fs-frame"><div class="fs-lines"><div class="fs-l1">Write HTML.</div><div class="fs-l2">Render video.</div></div></div></div>
+          <div class="fs-cell fs-full"><div class="fs-frame"><div class="fs-lines"><div class="fs-l1">Write HTML.</div><div class="fs-l2">Render video.</div></div></div></div>
+        </div>
+        <div class="fs-holes fs-holes-bot"></div>
+      </div>
+      <div id="sm-b" class="fs-strip">
+        <div class="fs-holes fs-holes-top"></div>
+        <div class="fs-cells">
+          <div class="fs-cell fs-soft"><div class="fs-frame"><div class="fs-lines"><div class="fs-l1">Write HTML.</div><div class="fs-l2">Render video.</div></div></div></div>
+          <div class="fs-cell fs-l1"><div class="fs-frame"><div class="fs-lines"><div class="fs-l1">Write HTML.</div><div class="fs-l2">Render video.</div></div></div></div>
+          <div class="fs-cell fs-l1"><div class="fs-frame"><div class="fs-lines"><div class="fs-l1">Write HTML.</div><div class="fs-l2">Render video.</div></div></div></div>
+          <div class="fs-cell fs-half"><div class="fs-frame"><div class="fs-lines"><div class="fs-l1">Write HTML.</div><div class="fs-l2">Render video.</div></div></div></div>
+          <div class="fs-cell fs-full"><div class="fs-frame"><div class="fs-lines"><div class="fs-l1">Write HTML.</div><div class="fs-l2">Render video.</div></div></div></div>
+          <div class="fs-cell fs-full"><div class="fs-frame"><div class="fs-lines"><div class="fs-l1">Write HTML.</div><div class="fs-l2">Render video.</div></div></div></div>
+          <div class="fs-cell fs-full"><div class="fs-frame"><div class="fs-lines"><div class="fs-l1">Write HTML.</div><div class="fs-l2">Render video.</div></div></div></div>
+          <div class="fs-cell fs-full"><div class="fs-frame"><div class="fs-lines"><div class="fs-l1">Write HTML.</div><div class="fs-l2">Render video.</div></div></div></div>
+          <div class="fs-cell fs-full"><div class="fs-frame"><div class="fs-lines"><div class="fs-l1">Write HTML.</div><div class="fs-l2">Render video.</div></div></div></div>
+        </div>
+        <div class="fs-holes fs-holes-bot"></div>
+      </div>
+    </div>
+    <div id="sm-head-a" class="sm-head" data-layout-allow-overlap>
+      <span id="sm-ha1" class="sm-word">Same</span> <span id="sm-ha2" class="sm-word">input.</span>
+    </div>
+    <div id="sm-head-b" class="sm-head" data-layout-allow-overlap>
+      <span id="sm-hb1" class="sm-word">Same</span>
+      <span id="sm-hb2" class="sm-word"><span id="sm-mark"></span>frames.</span>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    gsap.set(["#sm-ha1", "#sm-ha2", "#sm-hb1", "#sm-hb2"], { opacity: 0 });
+    gsap.set("#sm-mark", { scaleX: 0 });
+
+    // The film runs: the whole stage drifts left at constant speed.
+    tl.fromTo("#sm-drift", { x: 0 }, { x: -200, duration: 6, ease: "none" }, 0);
+
+    // The single cell grows into strip A.
+    tl.fromTo("#sm-a", { clipPath: "inset(48px 1632px 48px 1632px)" }, {
+      clipPath: "inset(0px 0px 0px 0px)", duration: 0.7, ease: "expo.out",
+    }, 0.1);
+    tl.fromTo("#sm-a", { y: 0 }, { y: -210, duration: 0.7, ease: "power3.inOut" }, 0.5);
+
+    // Strip B, a second render, whips in from the right and settles into x alignment.
+    tl.fromTo("#sm-b", { x: 2200, y: 150, filter: "blur(18px)" }, {
+      x: 0, y: 150, filter: "blur(0px)", duration: 1.3, ease: "expo.out",
+    }, 0.9);
+    tl.to(["#sm-ha1", "#sm-ha2"], { opacity: 1, duration: 0.01 }, 1.2);
+    tl.fromTo(["#sm-ha1", "#sm-ha2"], { filter: "blur(6px)" }, {
+      filter: "blur(0px)", duration: 0.13, ease: "power4.out", stagger: 0.07,
+    }, 1.2);
+
+    // Converge: the two renders land on one line, frame for frame.
+    tl.to("#sm-a", { y: -30, duration: 0.8, ease: "power3.inOut" }, 2.6);
+    tl.to("#sm-b", { y: -30, duration: 0.8, ease: "power3.inOut" }, 2.6);
+    tl.to(["#sm-ha1", "#sm-ha2"], {
+      opacity: 0, filter: "blur(8px)", duration: 0.15, ease: "power2.in", stagger: 0.04,
+    }, 3.15);
+    tl.fromTo(["#sm-hb1", "#sm-hb2"], { opacity: 0, filter: "blur(6px)" }, {
+      opacity: 1, filter: "blur(0px)", duration: 0.13, ease: "power4.out", stagger: 0.07,
+    }, 3.4);
+    tl.to("#sm-mark", { scaleX: 1, duration: 0.35, ease: "expo.out" }, 3.6);
+    tl.set({}, {}, 6);
+    window.__timelines["same"] = tl;
+  </script>
+</template>
