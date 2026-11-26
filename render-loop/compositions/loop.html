@@ -284,6 +284,7 @@
       width: 180px;
       height: 98px;
       background: #3CE6AC;
+      border: 5px solid #181716;
       opacity: 0;
     }
     #file-tri {
@@ -453,7 +454,7 @@
     for (let i = 0; i < 6; i++) {
       const t = T0 + STEP * i;
       tl.to(`#fly${i}`, { opacity: 1, duration: 0.01 }, t);
-      tl.to(`#fly${i}`, { y: -400, scale: 0.4, duration: 0.32, ease: "power2.in" }, t);
+      tl.to(`#fly${i}`, { y: -400, scale: 0.4, duration: 0.32, ease: "power2.inOut" }, t);
       tl.to(`#fly${i}`, { opacity: 0, duration: 0.04 }, t + 0.32);
       tl.to("#file-fill", { scaleX: (i + 1) / 6, duration: 0.06, ease: "power2.out", overwrite: "auto" }, t + 0.32);
     }
