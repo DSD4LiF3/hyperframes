@@ -1,0 +1,321 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      background: #f2f0ed;
+      font-family: "Inter", sans-serif;
+      color: #181716;
+    }
+    /* Workspace objects: identical in editor.html and render.html */
+    .ws-headline {
+      position: absolute;
+      left: 96px;
+      top: 92px;
+      font-size: 96px;
+      font-weight: 900;
+      letter-spacing: -0.045em;
+      line-height: 1;
+      white-space: nowrap;
+    }
+    .ws-word {
+      display: inline-block;
+    }
+    .ws-pane {
+      position: absolute;
+      left: 96px;
+      top: 250px;
+      width: 880px;
+      height: 720px;
+      background: #ffffff;
+      border: 1px solid #e3e0db;
+      border-radius: 18px;
+      box-shadow: 0 24px 60px rgba(24, 23, 22, 0.12);
+      overflow: hidden;
+    }
+    .ws-tab {
+      height: 64px;
+      padding: 0 32px;
+      display: flex;
+      align-items: center;
+      border-bottom: 1px solid #e3e0db;
+      font-family: "JetBrains Mono", monospace;
+      font-size: 28px;
+      color: #57534e;
+    }
+    .ws-code {
+      padding: 24px 32px;
+      font-family: "JetBrains Mono", monospace;
+      font-size: 28px;
+      line-height: 44px;
+      white-space: pre;
+      color: #181716;
+    }
+    .ws-ln {
+      display: inline-block;
+      width: 70px;
+      color: #78716c;
+    }
+    .ws-tag {
+      color: #0e7490;
+    }
+    .ws-prop {
+      color: #6d28d9;
+    }
+    .ws-str {
+      color: #15803d;
+    }
+    .ws-hex {
+      position: relative;
+      display: inline-block;
+      isolation: isolate;
+    }
+    .ws-player {
+      position: absolute;
+      left: 1024px;
+      top: 250px;
+      width: 800px;
+      transform-origin: 0 0;
+    }
+    .ws-video {
+      position: relative;
+      width: 800px;
+      height: 450px;
+      overflow: hidden;
+    }
+    .ws-frame {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 1920px;
+      height: 1080px;
+      transform: scale(0.41667);
+      transform-origin: 0 0;
+      background: #3CE6AC;
+    }
+    .ws-frame-lines {
+      position: absolute;
+      left: 150px;
+      top: 318px;
+    }
+    .ws-frame-line {
+      font-size: 230px;
+      font-weight: 900;
+      letter-spacing: -0.045em;
+      line-height: 0.95;
+      color: #181716;
+      white-space: nowrap;
+    }
+    .ws-bar {
+      position: relative;
+      height: 56px;
+      background: #ffffff;
+      border: 1px solid #e3e0db;
+      border-top: none;
+      border-radius: 0 0 14px 14px;
+    }
+    .ws-play {
+      position: absolute;
+      left: 24px;
+      top: 17px;
+      width: 0;
+      height: 0;
+      border-top: 11px solid transparent;
+      border-bottom: 11px solid transparent;
+      border-left: 18px solid #181716;
+    }
+    .ws-track {
+      position: absolute;
+      left: 64px;
+      top: 25px;
+      width: 712px;
+      height: 6px;
+      border-radius: 3px;
+      background: #e3e0db;
+    }
+    .ws-fill {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 712px;
+      height: 6px;
+      border-radius: 3px;
+      background: #181716;
+      transform-origin: 0 50%;
+    }
+    .ws-knob {
+      position: absolute;
+      left: -9px;
+      top: -6px;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: #181716;
+    }
+    /* render-only */
+    #rd-head-b {
+      position: absolute;
+      left: 96px;
+      top: 92px;
+    }
+    #rd-term {
+      position: absolute;
+      left: 96px;
+      top: 250px;
+      width: 880px;
+      height: 720px;
+      background: #181716;
+      border-radius: 18px;
+      padding: 28px 24px;
+      font-family: "JetBrains Mono", monospace;
+      font-size: 28px;
+      line-height: 46px;
+      color: #f2f0ed;
+      overflow: hidden;
+    }
+    .rd-line {
+      position: relative;
+      height: 46px;
+      white-space: pre;
+    }
+    .rd-prompt {
+      color: #3CE6AC;
+    }
+    .rd-dim {
+      color: #a8a29e;
+    }
+    .rd-ok {
+      color: #3CE6AC;
+    }
+    #rd-bar {
+      font-size: 18px;
+    }
+    #rd-cmd {
+      display: inline-block;
+    }
+  </style>
+  <div id="root" data-composition-id="render" data-width="1920" data-height="1080">
+    <div id="rd-head-a" class="ws-headline" data-layout-allow-overlap>
+      <span id="rd-hw1" class="ws-word">It's</span> <span id="rd-hw2" class="ws-word">just</span>
+      <span id="rd-hw3" class="ws-word">HTML.</span>
+    </div>
+    <div id="rd-head-b" class="ws-headline" data-layout-allow-overlap>
+      <span id="rd-hb1" class="ws-word">Render</span> <span id="rd-hb2" class="ws-word">it.</span>
+    </div>
+
+    <div id="rd-pane" class="ws-pane" data-layout-allow-overlap>
+      <div class="ws-tab">compositions/title.html</div>
+      <div class="ws-code"><span class="ws-ln">1</span><span class="ws-tag">&lt;style&gt;</span>
+<span class="ws-ln">2</span>  #root {
+<span class="ws-ln">3</span>    <span class="ws-prop">background</span>: <span class="ws-hex">#06E3FA</span>;
+<span class="ws-ln">4</span>    <span class="ws-prop">font-family</span>: <span class="ws-str">"Inter"</span>, sans-serif;
+<span class="ws-ln">5</span>  }
+<span class="ws-ln">6</span>  .t-line {
+<span class="ws-ln">7</span>    <span class="ws-prop">font-size</span>: 230px;
+<span class="ws-ln">8</span>    <span class="ws-prop">font-weight</span>: 900;
+<span class="ws-ln">9</span>  }
+<span class="ws-ln">10</span><span class="ws-tag">&lt;/style&gt;</span>
+<span class="ws-ln">11</span><span class="ws-tag">&lt;div</span> class=<span class="ws-str">"t-line"</span><span class="ws-tag">&gt;</span>Write HTML.<span class="ws-tag">&lt;/div&gt;</span>
+<span class="ws-ln">12</span><span class="ws-tag">&lt;div</span> class=<span class="ws-str">"t-line"</span><span class="ws-tag">&gt;</span>Render video.<span class="ws-tag">&lt;/div&gt;</span></div>
+    </div>
+
+    <div id="rd-term" data-layout-allow-occlusion data-layout-allow-overlap>
+      <div class="rd-line"><span class="rd-prompt">$ </span><span id="rd-cmd">npx hyperframes render -o promo.mp4</span></div>
+      <div id="rd-l2" class="rd-line"><span class="rd-ok">◆</span>  Rendering hyperframes-promo → promo.mp4</div>
+      <div id="rd-l3" class="rd-line rd-dim">   30fps · looks (CRF 16) · auto workers</div>
+      <div id="rd-l4" class="rd-line"><span id="rd-bar" class="rd-ok">░░░░░░░░░░░░░░░░░░░░░░░░░</span>  <span id="rd-pct">26%</span>  <span id="rd-stage">Streaming frame 1/900</span></div>
+      <div id="rd-l5" class="rd-line"><span class="rd-ok">◇</span>  promo.mp4</div>
+      <div id="rd-l6" class="rd-line rd-dim">   30.0s video</div>
+    </div>
+
+    <div id="rd-player" class="ws-player">
+      <div id="rd-video" class="ws-video" style="border-radius: 14px 14px 0 0">
+        <div id="rd-frame" class="ws-frame" style="background: #06e3fa">
+          <div class="ws-frame-lines">
+            <div class="ws-frame-line">Write HTML.</div>
+            <div class="ws-frame-line">Render video.</div>
+          </div>
+        </div>
+      </div>
+      <div id="rd-barwrap" class="ws-bar">
+        <div class="ws-play"></div>
+        <div class="ws-track">
+          <div id="rd-fill" class="ws-fill"></div>
+          <div id="rd-knob" class="ws-knob"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    const TRACK = 712;
+    const CELLS = 25;
+
+    // Initial state matches the editor's last frame.
+    gsap.set("#rd-fill", { scaleX: 0.1 });
+    gsap.set("#rd-knob", { x: TRACK * 0.1 });
+    gsap.set(["#rd-hb1", "#rd-hb2"], { opacity: 0 });
+    gsap.set(["#rd-l2", "#rd-l3", "#rd-l4", "#rd-l5", "#rd-l6"], { opacity: 0 });
+
+    // Headline swap.
+    tl.to(["#rd-hw1", "#rd-hw2", "#rd-hw3"], {
+      opacity: 0, filter: "blur(8px)", duration: 0.15, ease: "power2.in", stagger: 0.04,
+    }, 0.2);
+    tl.fromTo(["#rd-hb1", "#rd-hb2"], { opacity: 0, filter: "blur(6px)" }, {
+      opacity: 1, filter: "blur(0px)", duration: 0.13, ease: "power4.out", stagger: 0.07,
+    }, 0.5);
+
+    // The editor pane becomes the terminal, rising from its bottom edge.
+    tl.fromTo("#rd-term", { clipPath: "inset(100% 0% 0% 0% round 18px)" }, {
+      clipPath: "inset(0% 0% 0% 0% round 18px)", duration: 0.6, ease: "power3.inOut",
+    }, 0.3);
+
+    // Type the command.
+    tl.fromTo("#rd-cmd", { clipPath: "inset(0 100% 0 0)" }, {
+      clipPath: "inset(0 0% 0 0)", duration: 1.05, ease: "steps(35)",
+    }, 1.0);
+    tl.to("#rd-l2", { opacity: 1, duration: 0.02 }, 2.25);
+    tl.to("#rd-l3", { opacity: 1, duration: 0.02 }, 2.32);
+    tl.to("#rd-l4", { opacity: 1, duration: 0.02 }, 2.5);
+
+    // Progress, in the real CLI's own stages. A pure function of tween progress.
+    const bar = document.getElementById("rd-bar");
+    const pct = document.getElementById("rd-pct");
+    const stage = document.getElementById("rd-stage");
+    const prog = { p: 0 };
+    function paint() {
+      const p = prog.p;
+      let percent, label;
+      if (p < 0.86) {
+        const k = p / 0.86;
+        percent = Math.round(26 + 54 * k);
+        label = "Streaming frame " + Math.round(1 + 899 * k) + "/900";
+      } else if (p < 0.95) {
+        percent = 90;
+        label = "Assembling final video";
+      } else {
+        percent = 100;
+        label = "Render complete";
+      }
+      const filled = Math.round((CELLS * percent) / 100);
+      bar.textContent = "█".repeat(filled) + "░".repeat(CELLS - filled);
+      pct.textContent = (percent < 100 ? " " : "") + percent + "%";
+      stage.textContent = label;
+    }
+    tl.fromTo(prog, { p: 0 }, { p: 1, duration: 2.2, ease: "none", onUpdate: paint }, 2.5);
+    tl.to("#rd-fill", { scaleX: 1, duration: 1.9, ease: "none" }, 2.5);
+    tl.to("#rd-knob", { x: TRACK, duration: 1.9, ease: "none" }, 2.5);
+    tl.to("#rd-l5", { opacity: 1, duration: 0.02 }, 4.8);
+    tl.to("#rd-l6", { opacity: 1, duration: 0.02 }, 4.86);
+
+    // Clear the workspace; the finished video shrinks into one film cell at centre.
+    tl.to(["#rd-head-b", "#rd-term", "#rd-pane", "#rd-barwrap"], {
+      opacity: 0, filter: "blur(10px)", duration: 0.3, ease: "power3.in", stagger: 0.04,
+    }, 5.4);
+    tl.to("#rd-player", { x: -256, y: 182, scale: 384 / 800, duration: 0.9, ease: "power3.inOut" }, 5.5);
+    tl.to("#rd-video", { borderRadius: 0, duration: 0.6, ease: "power2.inOut" }, 5.6);
+    tl.set({}, {}, 7);
+    window.__timelines["render"] = tl;
+  </script>
+</template>
