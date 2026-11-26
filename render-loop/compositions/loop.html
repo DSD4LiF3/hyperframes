@@ -220,7 +220,7 @@
       position: absolute;
       left: 0;
       top: 16px;
-      width: 1200px;
+      width: 2400px;
       height: 98px;
     }
     .sc {
@@ -269,7 +269,22 @@
       top: 120px;
       width: 300px;
       height: 110px;
+      background: #d9f6eb;
+    }
+    #file-fill {
+      position: absolute;
+      inset: 0;
       background: #3CE6AC;
+      transform-origin: 0 50%;
+    }
+    .fly {
+      position: absolute;
+      left: 360px;
+      top: 1126px;
+      width: 180px;
+      height: 98px;
+      background: #3CE6AC;
+      opacity: 0;
     }
     #file-tri {
       position: absolute;
@@ -280,6 +295,7 @@
       border-top: 28px solid transparent;
       border-bottom: 28px solid transparent;
       border-left: 46px solid #181716;
+      opacity: 0;
     }
     #file-name {
       position: absolute;
@@ -350,6 +366,12 @@
           <div class="sc" style="left: 560px"><div class="sc-fill sc-later"><div class="sc-ball"></div></div></div>
           <div class="sc" style="left: 760px"><div class="sc-fill sc-later"><div class="sc-ball"></div></div></div>
           <div class="sc" style="left: 960px"><div class="sc-fill sc-later"><div class="sc-ball"></div></div></div>
+          <div class="sc" style="left: 1160px"><div class="sc-fill sc-later"><div class="sc-ball"></div></div></div>
+          <div class="sc" style="left: 1360px"><div class="sc-fill sc-later"><div class="sc-ball"></div></div></div>
+          <div class="sc" style="left: 1560px"><div class="sc-fill sc-later"><div class="sc-ball"></div></div></div>
+          <div class="sc" style="left: 1760px"><div class="sc-fill sc-later"><div class="sc-ball"></div></div></div>
+          <div class="sc" style="left: 1960px"><div class="sc-fill sc-later"><div class="sc-ball"></div></div></div>
+          <div class="sc" style="left: 2160px"><div class="sc-fill sc-later"><div class="sc-ball"></div></div></div>
       </div>
     </div>
     <div id="still" data-layout-allow-overlap>
@@ -357,9 +379,15 @@
       <div class="ball" style="left: 327px"></div>
     </div>
 
+    <div id="fly0" class="fly" data-layout-allow-overlap><div class="sc-ball"></div></div>
+    <div id="fly1" class="fly" data-layout-allow-overlap><div class="sc-ball"></div></div>
+    <div id="fly2" class="fly" data-layout-allow-overlap><div class="sc-ball"></div></div>
+    <div id="fly3" class="fly" data-layout-allow-overlap><div class="sc-ball"></div></div>
+    <div id="fly4" class="fly" data-layout-allow-overlap><div class="sc-ball"></div></div>
+    <div id="fly5" class="fly" data-layout-allow-overlap><div class="sc-ball"></div></div>
     <div id="file" data-layout-allow-overlap>
       <div id="file-body">
-        <div id="file-band"><div id="file-tri"></div></div>
+        <div id="file-band"><div id="file-fill"></div><div id="file-tri"></div></div>
         <div id="file-name">video.mp4</div>
       </div>
     </div>
@@ -372,7 +400,8 @@
     // Initial transforms (never in CSS on elements GSAP moves).
     gsap.set("#ct-row", { x: -126 });
     gsap.set("#strip", { x: -1080 });
-    gsap.set("#file", { y: 300, scale: 0.3 });
+    gsap.set("#file", { scale: 0.7 });
+    gsap.set("#file-fill", { scaleX: 0 });
 
     // 1. Pick a frame: 89 rolls to 90, the tick row steps one cell.
     tl.to("#ct-roll", { y: -340, duration: 0.45, ease: "expo.out" }, 0.3);
@@ -411,15 +440,27 @@
     tl.to("#sc-slot-fill", { opacity: 1, duration: 0.01 }, 8.05);
     tl.to("#still", { opacity: 0, duration: 0.01 }, 8.06);
 
-    // 5. Encode: every slot fills, the strip runs and collapses into the file.
+    // 5. Encode: the file opens empty; the strip runs past the slot and each
+    // frame lifts out of it into the file, filling its band one step per frame.
     tl.to("#hl4", OUT, 8.7);
     tl.to("#hl5", IN, 8.85);
     tl.to(["#win", "#tr", "#tr-0", "#tr-5", "#ph", "#eq-t"], { ...OUT, duration: 0.25, ease: "power3.in" }, 8.8);
-    tl.to(".sc-later", { opacity: 1, duration: 0.05, stagger: 0.07 }, 8.95);
-    tl.to("#strip-row", { x: -400, filter: "blur(6px)", duration: 0.45, ease: "power3.in" }, 9.25);
-    tl.to("#strip", { scaleX: 0, transformOrigin: "450px 50%", duration: 0.3, ease: "power3.in" }, 9.6);
-    tl.to("#strip", { opacity: 0, duration: 0.05 }, 9.88);
-    tl.to("#file", { y: 0, scale: 1, opacity: 1, duration: 0.55, ease: "expo.out" }, 9.75);
+    tl.to("#file", { scale: 1, opacity: 1, duration: 0.4, ease: "expo.out" }, 8.9);
+    tl.to(".sc-later", { opacity: 1, duration: 0.05, stagger: 0.04 }, 8.95);
+    const STEP = 0.18;
+    const T0 = 9.25;
+    tl.to("#strip-row", { x: -1200, duration: STEP * 6, ease: "none" }, T0);
+    for (let i = 0; i < 6; i++) {
+      const t = T0 + STEP * i;
+      tl.to(`#fly${i}`, { opacity: 1, duration: 0.01 }, t);
+      tl.to(`#fly${i}`, { y: -400, scale: 0.4, duration: 0.32, ease: "power2.in" }, t);
+      tl.to(`#fly${i}`, { opacity: 0, duration: 0.04 }, t + 0.32);
+      tl.to("#file-fill", { scaleX: (i + 1) / 6, duration: 0.06, ease: "power2.out", overwrite: "auto" }, t + 0.32);
+    }
+    tl.to("#strip", { x: -1080, opacity: 0, duration: 0.3, ease: "power3.in" }, T0 + STEP * 6 + 0.05);
+    tl.fromTo("#file-tri", { opacity: 0, scale: 0.6 }, {
+      opacity: 1, scale: 1, duration: 0.3, ease: "expo.out", immediateRender: false,
+    }, T0 + STEP * 5 + 0.42);
 
     // 6. Same frame, every time: back to the start, matching frame 0.
     tl.to("#hl5", OUT, 10.6);

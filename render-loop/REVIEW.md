@@ -26,4 +26,5 @@
 
 ## Weakest beat / next
 
-- Encode (8.9–10.6 s) is the most abstract: the strip runs and collapses, but nothing shows FFmpeg doing work. With more time, cells could stream into the file one by one while a frame counter ticks up.
+- Encode (8.9–10.6 s) was rebuilt to show the work. video.mp4 opens empty, the strip runs past the slot at one frame every 0.18 s, each frame lifts into the file, and the band fills in six steps before the play mark lands.
+- The weakest beat is now the seek (5.4–6.0 s): the playhead and the ball move together, but the jump straight to 3.0 s could be shown more clearly. A brief ghost of the ball at 0 s would make the "jump, don't play" point plainer.
