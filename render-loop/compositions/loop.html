@@ -1,0 +1,436 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      background: #f2f0ed;
+      font-family: "Inter", sans-serif;
+      color: #181716;
+    }
+    .hl {
+      position: absolute;
+      left: 120px;
+      top: 300px;
+      width: 660px;
+      font-size: 84px;
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      line-height: 1;
+    }
+    .hidden {
+      opacity: 0;
+      filter: blur(8px);
+    }
+    #sub {
+      position: absolute;
+      left: 120px;
+      top: 492px;
+      width: 660px;
+      font-size: 36px;
+      font-weight: 700;
+      color: #57534e;
+    }
+    /* counter */
+    #ct-label {
+      position: absolute;
+      left: 120px;
+      top: 540px;
+      width: 660px;
+      text-align: center;
+      font-size: 44px;
+      font-weight: 700;
+      color: #78716c;
+    }
+    #ct-win {
+      position: absolute;
+      left: 120px;
+      top: 600px;
+      width: 660px;
+      height: 340px;
+      overflow: hidden;
+    }
+    .ct-num {
+      height: 340px;
+      font-size: 340px;
+      line-height: 340px;
+      font-weight: 900;
+      letter-spacing: -0.05em;
+      text-align: center;
+    }
+    #ct-ticks {
+      position: absolute;
+      left: 120px;
+      top: 990px;
+      width: 660px;
+      height: 96px;
+      overflow: hidden;
+    }
+    #ct-hi {
+      position: absolute;
+      left: 270px;
+      top: 0;
+      width: 120px;
+      height: 96px;
+      border-radius: 14px;
+      background: #3CE6AC;
+    }
+    #ct-row {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 1188px;
+      height: 96px;
+    }
+    .ct-cell {
+      position: absolute;
+      top: 0;
+      width: 120px;
+      height: 96px;
+      line-height: 96px;
+      text-align: center;
+      font-size: 40px;
+      font-weight: 700;
+    }
+    /* equation */
+    .eq {
+      position: absolute;
+      left: 120px;
+      width: 660px;
+      text-align: center;
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      line-height: 1;
+    }
+    #eq1 {
+      top: 560px;
+      font-size: 110px;
+    }
+    #eq2 {
+      top: 690px;
+      font-size: 90px;
+      color: #78716c;
+    }
+    #eq-t {
+      top: 790px;
+      font-size: 220px;
+      height: 220px;
+    }
+    /* browser window */
+    #win {
+      position: absolute;
+      left: 140px;
+      top: 590px;
+      width: 620px;
+      height: 380px;
+      background: #ffffff;
+      border: 1px solid #e3e0db;
+      border-radius: 18px;
+      box-shadow: 0 24px 60px rgba(24, 23, 22, 0.12);
+      overflow: hidden;
+    }
+    .dot {
+      position: absolute;
+      top: 15px;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: #d6d3ce;
+    }
+    #win-page {
+      position: absolute;
+      left: 0;
+      top: 44px;
+      width: 620px;
+      height: 336px;
+      background: #3CE6AC;
+      overflow: hidden;
+    }
+    .path {
+      position: absolute;
+      left: 62px;
+      top: 166px;
+      width: 496px;
+      height: 4px;
+      background: rgba(24, 23, 22, 0.18);
+    }
+    .ball {
+      position: absolute;
+      left: 30px;
+      top: 136px;
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: #181716;
+    }
+    #win-flash {
+      position: absolute;
+      inset: 0;
+      background: #ffffff;
+      opacity: 0;
+    }
+    /* timeline */
+    #tr {
+      position: absolute;
+      left: 140px;
+      top: 1040px;
+      width: 620px;
+      height: 8px;
+      border-radius: 4px;
+      background: #d6d3ce;
+    }
+    .tr-lab {
+      position: absolute;
+      top: 1072px;
+      width: 90px;
+      font-family: "JetBrains Mono", monospace;
+      font-size: 32px;
+      color: #57534e;
+    }
+    #ph {
+      position: absolute;
+      left: 137px;
+      top: 1012px;
+      width: 6px;
+      height: 64px;
+      border-radius: 3px;
+      background: #181716;
+    }
+    /* captured still */
+    #still {
+      position: absolute;
+      left: 140px;
+      top: 634px;
+      width: 620px;
+      height: 336px;
+      background: #3CE6AC;
+      opacity: 0;
+    }
+    /* filmstrip */
+    #strip {
+      position: absolute;
+      left: 0;
+      top: 1110px;
+      width: 1080px;
+      height: 130px;
+      background: #181716;
+      overflow: hidden;
+    }
+    #strip-row {
+      position: absolute;
+      left: 0;
+      top: 16px;
+      width: 1200px;
+      height: 98px;
+    }
+    .sc {
+      position: absolute;
+      top: 0;
+      width: 180px;
+      height: 98px;
+      background: #2e2c2a;
+      overflow: hidden;
+    }
+    .sc-fill {
+      position: absolute;
+      inset: 0;
+      background: #3CE6AC;
+      opacity: 0;
+    }
+    .sc-ball {
+      position: absolute;
+      left: 95px;
+      top: 39px;
+      width: 19px;
+      height: 19px;
+      border-radius: 50%;
+      background: #181716;
+    }
+    /* file */
+    #file {
+      position: absolute;
+      left: 300px;
+      top: 600px;
+      width: 300px;
+      height: 380px;
+      opacity: 0;
+    }
+    #file-body {
+      position: absolute;
+      inset: 0;
+      background: #ffffff;
+      border-radius: 18px;
+      clip-path: polygon(0 0, 76% 0, 100% 19%, 100% 100%, 0 100%);
+      box-shadow: 0 24px 60px rgba(24, 23, 22, 0.12);
+    }
+    #file-band {
+      position: absolute;
+      left: 0;
+      top: 120px;
+      width: 300px;
+      height: 110px;
+      background: #3CE6AC;
+    }
+    #file-tri {
+      position: absolute;
+      left: 129px;
+      top: 27px;
+      width: 0;
+      height: 0;
+      border-top: 28px solid transparent;
+      border-bottom: 28px solid transparent;
+      border-left: 46px solid #181716;
+    }
+    #file-name {
+      position: absolute;
+      left: 0;
+      top: 290px;
+      width: 300px;
+      text-align: center;
+      font-family: "JetBrains Mono", monospace;
+      font-size: 40px;
+      font-weight: 700;
+    }
+  </style>
+  <div id="root" data-composition-id="loop" data-width="1080" data-height="1920">
+    <div id="hl1" class="hl" data-layout-allow-overlap>Pick a frame.</div>
+    <div id="hl2" class="hl hidden" data-layout-allow-overlap>Work out the time.</div>
+    <div id="hl3" class="hl hidden" data-layout-allow-overlap>Seek every animation.</div>
+    <div id="hl4" class="hl hidden" data-layout-allow-overlap>Capture the pixels.</div>
+    <div id="hl5" class="hl hidden" data-layout-allow-overlap>Encode with FFmpeg.</div>
+    <div id="hl6" class="hl hidden" data-layout-allow-overlap>Same frame. Every time.</div>
+    <div id="sub" class="hidden">Paused. Seeked, never played.</div>
+
+    <div id="ct-label" data-layout-allow-overlap>frame</div>
+    <div id="ct-win" data-layout-allow-overlap>
+      <div id="ct-roll" data-layout-ignore>
+        <div class="ct-num">89</div>
+        <div class="ct-num">90</div>
+      </div>
+    </div>
+    <div id="ct-ticks" data-layout-allow-overlap>
+      <div id="ct-hi"></div>
+      <div id="ct-row" data-layout-ignore>
+          <div class="ct-cell" style="left: 0px">86</div>
+          <div class="ct-cell" style="left: 132px">87</div>
+          <div class="ct-cell" style="left: 264px">88</div>
+          <div class="ct-cell" style="left: 396px">89</div>
+          <div class="ct-cell" style="left: 528px">90</div>
+          <div class="ct-cell" style="left: 660px">91</div>
+          <div class="ct-cell" style="left: 792px">92</div>
+          <div class="ct-cell" style="left: 924px">93</div>
+          <div class="ct-cell" style="left: 1056px">94</div>
+      </div>
+    </div>
+
+    <div id="eq1" class="eq hidden" data-layout-allow-overlap>90 ÷ 30 fps</div>
+    <div id="eq2" class="eq hidden" data-layout-allow-overlap>=</div>
+    <div id="eq-t" class="eq hidden" data-layout-allow-overlap>3.0 s</div>
+
+    <div id="win" class="hidden" data-layout-allow-overlap>
+      <div class="dot" style="left: 20px"></div>
+      <div class="dot" style="left: 44px"></div>
+      <div class="dot" style="left: 68px"></div>
+      <div id="win-page">
+        <div class="path"></div>
+        <div id="win-ball" class="ball"></div>
+        <div id="win-flash"></div>
+      </div>
+    </div>
+    <div id="tr" class="hidden"></div>
+    <div id="tr-0" class="tr-lab hidden" style="left: 140px">0 s</div>
+    <div id="tr-5" class="tr-lab hidden" style="left: 670px; text-align: right">5 s</div>
+    <div id="ph" class="hidden"></div>
+
+    <div id="strip" data-layout-allow-overflow data-layout-allow-overlap>
+      <div id="strip-row">
+          <div class="sc" style="left: -40px"><div class="sc-fill" style="opacity: 1"><div class="sc-ball"></div></div></div>
+          <div class="sc" style="left: 160px"><div class="sc-fill" style="opacity: 1"><div class="sc-ball"></div></div></div>
+          <div class="sc" style="left: 360px"><div id="sc-slot-fill" class="sc-fill"><div class="sc-ball"></div></div></div>
+          <div class="sc" style="left: 560px"><div class="sc-fill sc-later"><div class="sc-ball"></div></div></div>
+          <div class="sc" style="left: 760px"><div class="sc-fill sc-later"><div class="sc-ball"></div></div></div>
+          <div class="sc" style="left: 960px"><div class="sc-fill sc-later"><div class="sc-ball"></div></div></div>
+      </div>
+    </div>
+    <div id="still" data-layout-allow-overlap>
+      <div class="path"></div>
+      <div class="ball" style="left: 327px"></div>
+    </div>
+
+    <div id="file" data-layout-allow-overlap>
+      <div id="file-body">
+        <div id="file-band"><div id="file-tri"></div></div>
+        <div id="file-name">video.mp4</div>
+      </div>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    const IN = { opacity: 1, filter: "blur(0px)", duration: 0.18, ease: "power4.out" };
+    const OUT = { opacity: 0, filter: "blur(8px)", duration: 0.15, ease: "power2.in" };
+
+    // Initial transforms (never in CSS on elements GSAP moves).
+    gsap.set("#ct-row", { x: -126 });
+    gsap.set("#strip", { x: -1080 });
+    gsap.set("#file", { y: 300, scale: 0.3 });
+
+    // 1. Pick a frame: 89 rolls to 90, the tick row steps one cell.
+    tl.to("#ct-roll", { y: -340, duration: 0.45, ease: "expo.out" }, 0.3);
+    tl.to("#ct-row", { x: -258, duration: 0.45, ease: "expo.out" }, 0.3);
+
+    // 2. Work out the time: 90 / 30 fps = 3.0 s.
+    tl.to("#hl1", OUT, 2.2);
+    tl.to(["#ct-label", "#ct-win", "#ct-ticks"], { ...OUT, duration: 0.2, stagger: 0.03 }, 2.2);
+    tl.to("#hl2", IN, 2.35);
+    tl.to("#eq1", IN, 2.45);
+    tl.to("#eq2", IN, 2.9);
+    tl.to("#eq-t", { ...IN, duration: 0.22 }, 3.1);
+
+    // 3. Seek: the time flies to the timeline, the playhead seeks, the ball jumps.
+    tl.to("#hl2", OUT, 4.5);
+    tl.to(["#eq1", "#eq2"], OUT, 4.5);
+    tl.to("#hl3", IN, 4.65);
+    tl.to("#win", { ...IN, duration: 0.3 }, 4.6);
+    tl.fromTo("#win", { clipPath: "inset(0% 0% 100% 0% round 18px)" }, {
+      clipPath: "inset(0% 0% 0% 0% round 18px)", duration: 0.45, ease: "power3.out", immediateRender: false,
+    }, 4.6);
+    tl.to(["#tr", "#tr-0", "#tr-5", "#ph"], { ...IN, stagger: 0.04 }, 4.8);
+    tl.to("#eq-t", { x: 62, y: 195, scale: 40 / 220, duration: 0.6, ease: "power3.inOut" }, 4.7);
+    tl.to("#ph", { x: 372, duration: 0.6, ease: "power3.inOut" }, 5.4);
+    tl.to("#win-ball", { x: 297, duration: 0.6, ease: "power3.inOut" }, 5.4);
+    tl.to("#sub", IN, 5.55);
+
+    // 4. Capture: a flash, and the frame drops into its slot.
+    tl.to(["#hl3", "#sub"], OUT, 6.9);
+    tl.to("#hl4", IN, 7.05);
+    tl.to("#strip", { x: 0, duration: 0.5, ease: "power3.out" }, 7.0);
+    tl.to("#win-flash", { opacity: 0.9, duration: 0.05, ease: "none" }, 7.35);
+    tl.to("#win-flash", { opacity: 0, duration: 0.25, ease: "power2.out" }, 7.4);
+    tl.to("#still", { opacity: 1, duration: 0.01 }, 7.4);
+    tl.to("#still", { y: 373, scale: 180 / 620, duration: 0.6, ease: "expo.out" }, 7.45);
+    tl.to("#sc-slot-fill", { opacity: 1, duration: 0.01 }, 8.05);
+    tl.to("#still", { opacity: 0, duration: 0.01 }, 8.06);
+
+    // 5. Encode: every slot fills, the strip runs and collapses into the file.
+    tl.to("#hl4", OUT, 8.7);
+    tl.to("#hl5", IN, 8.85);
+    tl.to(["#win", "#tr", "#tr-0", "#tr-5", "#ph", "#eq-t"], { ...OUT, duration: 0.25, ease: "power3.in" }, 8.8);
+    tl.to(".sc-later", { opacity: 1, duration: 0.05, stagger: 0.07 }, 8.95);
+    tl.to("#strip-row", { x: -400, filter: "blur(6px)", duration: 0.45, ease: "power3.in" }, 9.25);
+    tl.to("#strip", { scaleX: 0, transformOrigin: "450px 50%", duration: 0.3, ease: "power3.in" }, 9.6);
+    tl.to("#strip", { opacity: 0, duration: 0.05 }, 9.88);
+    tl.to("#file", { y: 0, scale: 1, opacity: 1, duration: 0.55, ease: "expo.out" }, 9.75);
+
+    // 6. Same frame, every time: back to the start, matching frame 0.
+    tl.to("#hl5", OUT, 10.6);
+    tl.to("#hl6", IN, 10.75);
+    tl.to("#file", { y: 300, opacity: 0, duration: 0.35, ease: "power3.in" }, 10.8);
+    tl.set("#ct-roll", { y: 0 }, 10.9);
+    tl.set("#ct-row", { x: -126 }, 10.9);
+    tl.to(["#ct-label", "#ct-win", "#ct-ticks"], { ...IN, duration: 0.22, stagger: 0.04 }, 11.0);
+    tl.to("#hl6", OUT, 12.35);
+    tl.to("#hl1", IN, 12.5);
+    tl.set({}, {}, 13);
+    window.__timelines["loop"] = tl;
+  </script>
+</template>
